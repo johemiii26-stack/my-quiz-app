@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LO4 Employability Skills Comprehensive Exam (30 Questions)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f2f5f8;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 750px;
+            margin: 20px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 12px;
+            margin-top: 0;
+            font-size: 16pt;
+        }
+        .status-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            background-color: #ebf5fb;
+            padding: 10px 15px;
+            border-radius: 6px;
+        }
+        .status-text {
+            font-weight: bold;
+            color: #2980b9;
+            font-size: 11pt;
+        }
+        .question-box {
+            display: none;
+        }
+        .question-box.active {
+            display: block;
+        }
+        .question-text {
+            font-size: 12pt;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        .option-label {
+            display: block;
+            background-color: #ffffff;
+            border: 2px solid #d5dbdb;
+            padding: 11px 16px;
+            margin-bottom: 8px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 11pt;
+            transition: all 0.2s;
+        }
+        .option-label:hover {
+            background-color: #f8f9f9;
+            border-color: #bdc3c7;
+        }
+        .option-label input {
+            margin-right: 12px;
+            transform: scale(1.1);
+        }
+        .option-label.correct {
+            background-color: #d4efdf !important;
+            border-color: #27ae60 !important;
+            color: #196f3d;
+            font-weight: bold;
+        }
+        .option-label.incorrect {
+            background-color: #fadbd8 !important;
+            border-color: #cd6155 !important;
+            color: #78281f;
+        }
+        .explanation-box {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 7px;
+            border-left: 5px solid;
+            font-size: 10.5pt;
+        }
+        .explanation-box.correct-style {
+            background-color: #e8f8f5;
+            border-color: #16a085;
+            color: #117864;
+        }
+        .explanation-box.incorrect-style {
+            background-color: #fdf2e9;
+            border-color: #e67e22;
+            color: #a04000;
+        }
+        .amh-text {
+            font-family: 'Nyala', sans-serif;
+            margin-top: 6px;
+            border-top: 1px dashed #bdc3c7;
+            padding-top: 6px;
+            color: #5d6d7e;
+        }
+        .nav-buttons {
+            margin-top: 25px;
+            text-align: right;
+        }
+        button {
+            padding: 10px 24px;
+            font-size: 11pt;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            background-color: #3498db;
+            color: white;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .btn-next {
+            background-color: #27ae60;
+        }
+        .btn-next:hover {
+            background-color: #218c53;
+        }
+        .score-screen {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>LO4: Employability Skills (30 Mixed Challenge)</h1>
+    
+    <div id="quiz-ui">
+        <div class="status-container">
+            <span class="status-text">🌟 LO4 Complete Syllabus Mix</span>
+            <span class="status-text" style="color: #555;">Question <span id="idx-txt">1</span> of 30</span>
+        </div>
+        <div id="questions-container"></div>
+        <div class="nav-buttons">
+            <button id="action-btn" onclick="checkAnswer()">Submit Answer</button>
+        </div>
+    </div>
+
+    <div id="score-screen" class="score-screen">
+        <h2>Exam Evaluation Completed!</h2>
+        <p style="font-size: 28pt; font-weight: bold; color: #27ae60;"><span id="final-score">0</span> / 30</p>
+        <p id="final-msg" style="font-size: 12pt; color: #5d6d7e; margin-bottom: 25px;"></p>
+        <button onclick="window.location.reload()">Restart 30-Question Exam</button>
+    </div>
+</div>
+
+<script>
+const quizData = [
+    {
+        q: "What is the primary definition of 'Employability Skills'?",
+        a: ["The advanced technical engineering skills needed to repair machinery.", "A set of transferable core skills and attributes that enable individuals to enter and thrive in the workplace.", "The legal certificates required to pay taxes to the government.", "The financial capital required to hire workers in a factory."],
+        c: 1, // B
+        eng: "Employability skills are soft, transferable skills (like communication and teamwork) that make you effective across different jobs.",
+        amh: "የቅጥር ብቃት ክህሎት (Employability Skills) ማለት ከአንድ ስራ ወደ ሌላ ስራ የሚሸጋገሩ፣ ማንኛውም ሰራተኛ በስራ ቦታ ስኬታማ እንዲሆን የሚያስችሉ መሰረታዊ ክህሎቶች (ግንኙነት፣ የቡድን ስራ...) ናቸው።"
+    },
+    {
+        q: "During a heated workplace argument, an employee stops talking, actively analyzes the speaker's tone, and repeats the core points to ensure full clarity. This communication style is:",
+        a: ["Passive Communication", "Aggressive Communication", "Active Listening", "Assertive Negotiation"],
+        c: 2, // C
+        eng: "Tricky: Active listening specifically involves processing information, observing non-verbal cues, and validating through reflection.",
+        amh: "የሚያናውዝ ነጥብ፦ ንግግርን አቋርጦ፣ የተናጋሪውን ስሜትና ሀሳብ በሚገባ ተረድቶ፣ ነጥቦቹን በራስ ቃል በመድገም ማረጋገጥ 'ንቁ ማዳመጥ' (Active Listening) ይባላል።"
+    },
+    {
+        q: "Which element is widely considered the foundational core of effective time management in a highly demanding corporate environment?",
+        a: ["Prioritizing tasks based on importance and urgency", "Arriving exactly 10 minutes early to every scheduled meeting", "Working non-stop for 12 hours without any resting break", "Buying the most expensive digital calendar application"],
+        c: 0, // A
+        eng: "Time management relies fundamentally on the strategic ability to prioritize tasks (e.g., using the Eisenhower matrix).",
+        amh: "የጊዜ አጠቃቀም (Time Management) ትልቁና መሰረታዊ ምሰሶው ስራዎችን እንደ ቅድpriority እና እንደ አስፈላጊነታቸው በቅደም ተከተል መደርደር (Prioritization) ነው።"
+    },
+    {
+        q: "When a team faces a sudden unexpected delay, a team player immediately adapts, modifies their workflow, and embraces alternative paths without complaining. This displays:",
+        a: ["Technical Competency", "Financial Resourcefulness", "Vocational Training", "Flexibility and Adaptability"],
+        c: 3, // D
+        eng: "Flexibility and adaptability represent the critical capacity to respond constructively to unexpected workplace updates and challenges.",
+        amh: "ሳይጠበቅ ለሚመጡ ድንገተኛ የስራ ለውጦች እና መዘግየቶች በፍጥነት ተለማምዶ ስራን ሳያስተጓጉሉ መቀጠል 'ተለዋዋጭነት' (Adaptability) ይባላል።"
+    },
+    {
+        q: "An employee consistently fulfills duties on time, acts honestly, takes full accountability for their errors, and adheres to organizational values. They are exhibiting strong:",
+        a: ["Technological Intelligence", "Work Ethics and Integrity", "Interpersonal Manipulation", "Financial Independence"],
+        c: 1, // B
+        eng: "Work ethics and integrity include taking accountability for actions, being honest, and consistently maintaining moral standards at work.",
+        amh: "ስራን በሰዓት ማጠናቀቅ፣ በታማኝነት መስራት እና ስህተት ሲፈጠር ኃላፊነትን መውሰድ ጠንካራ የስራ ስነ-ምግባር (Work Ethics and Integrity) መኖርን ያሳያል።"
+    },
+    {
+        q: "In an organization, 'Transferable Skills' are unique because they:",
+        a: ["Can be applied across completely different job roles and diverse industry sectors.", "Are legally lost the moment an individual changes their legal employer.", "Are strictly limited to advanced database software programming codes.", "Require an annual written renewal certification from a microfinance bureau."],
+        c: 0, // A
+        eng: "Transferable skills (like communication or problem-solving) go with you from one job or company to another.",
+        amh: "ተሻጋሪ ክህሎቶች (Transferable Skills) የሚባሉት ከአንድ የሙያ ዘርፍ ወይም የስራ ቦታ ወደ ሌላ በማንኛውም ሰዓት ይዘናቸው ልንሄድ የምንችላቸው ክህሎቶች በመሆናቸው ነው።"
+    },
+    {
+        q: "What is considered a critical barrier to effective verbal communication inside a modern diverse workplace team?",
+        a: ["Speaking clearly and directly using plain language", "Using heavy technical jargon or complex slangs without explanation", "Maintaining regular professional eye contact with coworkers", "Summarizing key operational points at the end of a session"],
+        c: 1, // B
+        eng: "Tricky: Jargon and complicated terminology create confusion and act as major barriers to clean workplace comprehension.",
+        amh: "የሚያናውዝ ነጥብ፦ በንግግር ግንኙነት ወቅት ከልክ በላይ የሆኑ የቴክኒክ ቃላትን (Jargon) ወይም የአካባቢ ዘይቤዎችን መጠቀም መልዕክቱ እንዳይረዳ ስለሚያደርግ ትልቅ እንቅፋት (Barrier) ነው።"
+    },
+    {
+        q: "When analyzing team dynamics, a 'Functional Team' achieves maximum productivity primarily because:",
+        a: ["Every single team member possesses identical skills and backgrounds.", "Members understand their specific roles, trust each other, and work toward a shared goal.", "The designated team leader makes 100% of the choices without consulting others.", "The group completely avoids facing any form of project delays or problems."],
+        c: 1, // B
+        eng: "Healthy team dynamics require explicit understanding of roles, high mutual trust, and total commitment to common goals.",
+        amh: "አንድ ስኬታማ ቡድን (Functional Team) ከፍተኛ ውጤት የሚያመጣው አባላቱ የየራሳቸውን ሚና አውቀው፣ እርስ በእርስ ተማምነው ወደ ጋራ አላማ ሲጓዙ ብቻ ነው።"
+    },
+    {
+        q: "An employee notices a systemic defect in the customer intake process and independently designs a new tracking sheet without waiting for management orders. This demonstrates:",
+        a: ["Passive Compliance", "Technical Avoidance", "Initiative and Enterprise", "Organizational Subversion"],
+        c: 2, // C
+        eng: "Tricky: Taking initiative means identifying a problem or opportunity and acting on it independently without waiting to be told.",
+        amh: "የሚያናውዝ ነጥብ፦ የስራ ላይ ክፍተቶችን አይቶ አስተዳደሩ ሳይናገር ወይም ትዕዛዝ ሳይሰጥ በራስ ተነሳሽነት መፍትሄ መፍጠር 'ተነሳሽነት' (Initiative) ይባላል።"
+    },
+    {
+        q: "Which specific tool is heavily used by professionals to strategically plan long-term career goals and monitor skills development?",
+        a: ["A monthly business sales receipt ledger", "A Personal Development Plan (PDP)", "An asset depreciation calculating spreadsheet", "A standard corporate opening balance sheet blueprint"],
+        c: 1, // B
+        eng: "A Personal Development Plan (Plan/PDP) helps individuals map out their learning targets, weaknesses, and future career steps.",
+        amh: "የግል ልማት እቅድ (Personal Development Plan - PDP) አንድ ሰራተኛ የወደፊት የስራ ግቦቹን እና ክህሎቶቹን ለማሳደግ የሚጠቀምበት የግል መከታተያ ሰነድ ነው።"
+    },
+    {
+        q: "What is the absolute first systematic step in a standard logical problem-solving model inside an organization?",
+        a: ["Evaluating the long-term cost of secondary outcomes", "Implementing the most popular dynamic solution immediately", "Identifying and defining the root problem clearly", "Brainstorming alternative strategies with random contractors"],
+        c: 2, // C
+        eng: "You cannot solve a problem until you clearly isolate, identify, and define exactly what the root problem is.",
+        amh: "በማንኛውም መስሪያ ቤት ውስጥ ችግርን የመፍታት ሂደት (Problem Solving) የመጀመሪያው እና ዋናው እርምጃ ችግሩን በግልፅ መለየትና መተርጎም (Identifying the problem) ነው።"
+    },
+    {
+        q: "What type of non-verbal communication cue can completely alter or contradict the literal meaning of spoken verbal words?",
+        a: ["The dictionary definition of the words utilized", "Body language, facial expressions, and tone of voice", "The formal written email summary sent later", "The specific room temperature of the conference hall"],
+        c: 1, // B
+        eng: "Non-verbal cues like tone of voice and cross-armed body language can totally flip or weaken the spoken statement.",
+        amh: "ከቃል ውጭ የሚደረጉ ግንኙነቶች (Non-verbal cues) ለምሳሌ፦ የአካል እንቅስቃሴ (Body language)፣ የፊት ገጽታ እና የድምፅ ቃና የሚናገሩትን ቃል ትርጉም ሙሉ በሙሉ ሊቀይሩት ይችላሉ።"
+    },
+    {
+        q: "If an employee encounters an ethical dilemma where a manager asks them to slightly alter safe operational codes, the correct professional response is to:",
+        a: ["Follow the manager's instructions blindly to secure job promotion.", "Express concerns assertively and adhere strictly to professional codes and safety laws.", "Resign from the organization instantly without informing any internal authority.", "Spread anonymous negative rumors about the manager across social media."],
+        c: 1, // B
+        eng: "Tricky: Professionalism demands handling ethical issues assertively, prioritizing safety laws and official ethical codes over raw authority.",
+        amh: "የሚያናውዝ ነጥብ፦ በስራ ቦታ የሞራል ወይም የስነ-ምግባር መቃረን ሲጋረጥ (Ethical dilemma) ነገሩን በልበ-ሙሉነት (Assertively) በመቃወም የደህንነትና የህግ ደንቦችን በጥብቅ መከተል ያስፈልጋል።"
+    },
+    {
+        q: "Which conflict resolution style involves both parties completely collaborating to create a novel solution that fully satisfies all their mutual needs?",
+        a: ["Avoiding style", "Win-Win (Collaborating) style", "Competing (Win-Lose) style", "Accommodating style"],
+        c: 1, // B
+        eng: "Collaborating aims for a win-win integration where both sides actively design a solution that solves all concerns completely.",
+        amh: "ሁለቱም ወገኖች ተቀራርበውና ተወያይተው የሁለቱንም ፍላጎት ሙሉ በሙሉ የሚያረካ አዲስ መፍትሄ ሲፈጥሩ አሸናፊ-አሸናፊ (Win-Win) ወይም ትብብር ይባላል።"
+    },
+    {
+        q: "What does the term 'Professionalism' encompass in the workplace?",
+        a: ["Only the expensive brand of clothing an employee chooses to wear.", "A combination of competence, respectful behavior, reliability, and appropriate presentation.", "Achieving the maximum financial revenue margin in the sector.", "Having more than twenty years of working experience in one building."],
+        c: 1, // B
+        eng: "Professionalism is a holistic mix of attitude, competence, behavioral standard, respect, and reliable performance.",
+        amh: "ሙያዊነት (Professionalism) ማለት የአንድ ሰራተኛ እውቀት፣ ስነ-ምግባር፣ ታማኝነት፣ ለሰዎች ያለው ክብር እና ራሱን የማቅረብ ጥበብ ጥምረት ነው።"
+    },
+    {
+        q: "An employee creates a system to answer customer emails exactly within 4 hours to avoid a backlog. This professional action falls under:",
+        a: ["Technical Engineering", "Planning and Organizing", "Financial Speculation", "Vocational Apprenticeship"],
+        c: 1, // B
+        eng: "Planning and organizing involves establishing clear workflows, timelines, and systems to coordinate actions effectively.",
+        amh: "ስራዎች እንዳይከማቹ አስቀድሞ የጊዜ ሰሌዳና አሰራር ዘርግቶ መተግበር 'ማቀድና ማደራጀት' (Planning and Organizing) በሚለው ክህሎት ስር ይመደባል።"
+    },
+    {
+        q: "Why is 'Lifelong Learning' increasingly critical for modern entry-level employees?",
+        a: ["Because technical workplace technologies and industries evolve rapidly, making old skills obsolete.", "Because it is legally mandated to avoid paying personal income taxes.", "Because it automatically guarantees a lifetime contract with no evaluation rules.", "Because universities require employees to take exams every six months."],
+        c: 0, // A
+        eng: "Continuous or lifelong learning ensures employees constantly upgrade skills to remain relevant as technology alters the workplace.",
+        amh: "ዕድሜ ልክ መማር (Lifelong Learning) የሚያስፈልገው የቴክኖሎጂ ፍጥነት የስራ አሰራሮችን በየጊዜው ስለሚቀይራቸውና የድሮው እውቀት ጊዜ ያለፈበት ስለሚሆን ነው።"
+    },
+    {
+        q: "During a critical project emergency, a leader completely dictates every instruction without taking team input to save time. This classic leadership style is:",
+        a: ["Democratic Leadership", "Laissez-Faire Leadership", "Autocratic Leadership", "Transformational Leadership"],
+        c: 2, // C
+        eng: "Tricky: Autocratic leadership centers all decision-making authority entirely in the leader, offering high speed but zero group consultation.",
+        amh: "የሚያናውዝ ነጥብ፦ በአስቸኳይ ጊዜ ከቡድኑ አባላት ምንም አይነት አስተያየት ሳይቀበሉ ትዕዛዝን ብቻ በቀጥታ መስጠት 'አምባገነናዊ/አንድ ለአምስት' የመሪነት ዘይቤ (Autocratic Leadership) ይባላል።"
+    },
+    {
+        q: "When compiling a formal professional Curriculum Vitae (CV), what is the most strategic objective of adding a tailored Cover Letter?",
+        a: ["To list every single grade achieved since primary elementary school.", "To introduce yourself and directly bridge your specific skills to the targeted needs of the employer.", "To legally certify that you accept the minimum baseline salary offered.", "To display your personal artistic photography portfolio layouts."],
+        c: 1, // B
+        eng: "A cover letter highlights specific achievements and makes a direct contextual argument linking your skills to the specific job advert.",
+        amh: "የሽፋን ደብዳቤ (Cover Letter) ዋና ጥቅሙ የእርስዎን ማንነትና ልዩ ክህሎት ቀጣሪው ድርጅት ከሚፈልገው መስፈርት ጋር በቀጥታ ማገናኘትና ማሳመን ነው።"
+    },
+    {
+        q: "Which sub-skill describes the exact ability to accurately read, decode, and apply structural workplace safety signs and operational blueprints?",
+        a: ["Oral Negotiation", "Technical Information Literacy", "Financial Auditing", "Interpersonal Assertiveness"],
+        c: 1, // B
+        eng: "Information literacy in the workplace includes reading, processing, and executing structured documentation, signs, and instructions.",
+        amh: "የስራ ቦታ ደህንነት ምልክቶችን፣ መመሪያዎችን እና ንድፎችን በንቃት አንብቦ በተግባር ላይ ማዋል 'የመረጃ ማንበብ ብቃት' (Information Literacy) ይባላል።"
+    },
+    {
+        q: "What is the primary operational hazard of an employee possessing zero 'Digital Literacy' skills in today's typical office environment?",
+        a: ["They will cause the physical warehouse factory machines to overheat.", "They will struggle to effectively communicate via modern corporate tools and handle automated data workflows.", "They will be completely exempted from attending mandatory safety drills.", "They will automatically receive double corporate tax deductions on basic salary."],
+        c: 1, // B
+        eng: "Digital literacy is mandatory to navigate email channels, automated software, and shared digital database environments.",
+        amh: "የዲጂታል እውቀት (Digital Literacy) ማነስ አንድን ሰራተኛ በዘመናዊ የቢሮ አውቶሜሽን ስራዎች፣ በኢሜይልና በመረጃ አያያዝ ላይ ሙሉ በሙሉ ከጥቅም ውጭ ያደርገዋል።"
+    },
+    {
+        q: "An employee feels extreme pressure due to heavy seasonal workloads. Instead of quitting, they practice breathing steps, prioritize tasks, and remain calm. This exhibits:",
+        a: ["Aggressive Redirection", "Stress Management", "Vocational Specialization", "Passive Avoidance"],
+        c: 1, // B
+        eng: "Stress management consists of psychological and tactical techniques used to control anxiety and maintain work output under severe pressure.",
+        amh: "በስራ መደራረብ ምክንያት የሚመጣን ከባድ ጫና በምክንያታዊነት በመቆጣጠር ስራን በሰላም ማስኬድ 'ውጥረትን ማስተናገድ' (Stress Management) ይባላል።"
+    },
+    {
+        q: "In a corporate structure, 'Assertiveness' during professional peer discussions is explicitly defined as:",
+        a: ["Shouting loudly at team peers to enforce your personal choices.", "Expressing your thoughts and operational needs clearly and honestly while fully respecting the boundaries of others.", "Remaining completely silent and accepting every team order without objection.", "Reporting every single minor coworker disagreement to external state labor unions."],
+        c: 1, // B
+        eng: "Tricky: Assertiveness strikes a precise balance between passive compliance and raw aggression; you state your rights while respecting others.",
+        amh: "የሚያናውዝ ነጥብ፦ ልበ-ሙሉነት (Assertiveness) ማለት የሌሎችን መብትና ስሜት በከፍተኛ ደረጃ ሳያቆስሉ፣ የራስን ሀሳብና ፍላጎት በግልፅና በኩራት ማስረዳት መቻል ነው።"
+    },
+    {
+        q: "Which core attribute ensures that an employee consistently delivers reliable outputs, follows through on assignments, and rarely requires macro supervision?",
+        a: ["Dependability and Reliability", "Creative Eccentricity", "Financial Independence", "Intellectual Superiority"],
+        c: 0, // A
+        eng: "Dependability means management can rely on you to execute tasks consistently with minimal oversight or corrections.",
+        amh: "አንድ ሰራተኛ ያለ ምንም የቅርብ ክትትል ስራዎችን በትክክልና በታማኝነት በተደጋጋሚ ሲወጣ ይህ ባህሪው 'ታማኝነትና አስተማማኝነቱ' (Dependability) ይመሰክራል።"
+    },
+    {
+        q: "A cross-functional team contains members from different cultural backgrounds. To prevent cultural friction, the members must actively develop:",
+        a: ["Syllabic linguistic dialects", "Cultural Sensitivity and Awareness", "Financial capital assets", "Strict localized isolation rules"],
+        c: 1, // B
+        eng: "Cultural sensitivity ensures team members understand, respect, and value diverse backgrounds, preventing workplace discrimination.",
+        amh: "የተለያዩ ባህሎች ያሉዋቸው ሰራተኞች ባሉበት ቡድን ውስጥ አላስፈላጊ ግጭቶችን ለማስወገድ 'የባህል ግንዛቤና ስሜታዊነት' (Cultural Sensitivity) የግድ ያስፈልጋል።"
+    },
+    {
+        q: "When an interviewer asks an applicant: 'Tell me about a time you solved a dynamic failure under pressure,' what are they primary evaluating?",
+        a: ["The applicant's childhood memory recollection limits.", "The applicant's practical problem-solving competency and analytical behavioral traits.", "The exact total net worth of the applicant's prior employer.", "The legal validity of the applicant's formal identity certificates."],
+        c: 1, // B
+        eng: "Behavioral interview questions evaluate past real-world actions to forecast how effectively an applicant resolves future operational errors.",
+        amh: "በቃለ-መጠይቅ ወቅት 'ያጋጠመህን ትልቅ ችግር እንዴት እንደፈታኸው አብራራ' የሚባለው ጥያቄ ሰራተኛው ያለውን ችግር የመፍታት ተግባራዊ ብቃት (Problem-solving) ለመለካት ነው።"
+    },
+    {
+        q: "An engineering team uses a visual 'Fishbone Diagram' (Ishikawa) during a crisis meeting. What structural operation are they currently conducting?",
+        a: ["Calculating the financial balance sheet assets", "Analyzing the root causes of a complex operational problem", "Drafting a personal career development timetable", "Evaluating the monthly digital marketing budget ratios"],
+        c: 1, // B
+        eng: "Tricky: A fishbone diagram is a classic problem-solving tool utilized explicitly to map out and isolate all potential root causes of an error.",
+        amh: "የሚያናውዝ ነጥብ፦ የዓሳ አጥንት ዲያግራም (Fishbone Diagram) የሚባለው መሳሪያ በአንድ ድርጅት ውስጥ ለተከሰተ ትልቅ ችግር መንስኤ የሆኑትን ስር የሰደዱ ምክንያቶች (Root Causes) ለመተንተን የሚረዳ መሳሪያ ነው።"
+    },
+    {
+        q: "What is the primary role of 'Feedback' in personal career growth and professional skill enhancement cycles?",
+        a: ["To provide a legal basis for immediate employee salary reduction.", "To offer constructive insights that reveal blind spots and guide performance adjustments.", "To completely eliminate the need for future personal development planning.", "To document daily attendance hours for government tax filing bureaus."],
+        c: 1, // B
+        eng: "Constructive feedback acts as an essential diagnostic mirror, highlighting performance adjustments required for long-term career growth.",
+        amh: "የአስተያየት መልስ (Feedback) ዋና ጥቅሙ የአንድን ሰራተኛ ድክመትና ጥንካሬ (Blind spots) በግልፅ በማሳየት ራሱን እንዲያሻሽል ገንቢ መረጃ መስጠቱ ላይ ነው።"
+    },
+    {
+        q: "If a group project fails due to poor internal communication, who holds the ultimate baseline structural accountability in a healthy professional environment?",
+        a: ["The entire team collectively, with the leader taking the primary responsibility.", "The single newest intern hired inside the department.", "The external software corporation that built the office computers.", "The local government labor relations and compliance office."],
+        c: 0, // A
+        eng: "Healthy team dynamics mandate collective structural accountability for outcomes, with the leader assuming core ownership over execution.",
+        amh: "በቡድን ስራ ላይ ስህተት ወይም ውድቀት ሲከሰት ሙሉ ቡድኑ በጋራ ተጠያቂ የሚሆን ሲሆን፣ መሪው (Leader) ደግሞ ዋናውን የኃላፊነት ድርሻ ይወስዳል።"
+    },
+    {
+        q: "An employee reviews their daily task output list and deliberately groups similar tiny tasks together to execute them within one single blocked hour. This technique is known as:",
+        a: ["Creative Procrastination", "Batching (Time Management)", "Systemic Delegation", "Financial Consolidation"],
+        c: 1, // B
+        eng: "Tricky: 'Batching' is a time-management tactic where similar routine tasks (like replying to all emails) are grouped to prevent constant distraction.",
+        amh: "የሚያናውዝ ነጥብ፦ ተመሳሳይነት ያላቸውን ትናንሽ ስራዎች ለይቶ በአንድ ላይ ሰብስቦ በአንድ የጊዜ ክልል ውስጥ በአንድ ጊዜ ማጠናቀቅ በጊዜ አጠቃቀም ጥበብ ውስጥ 'Batching' ይባላል።"
+    }
+];
+
+let currentIndex = 0;
+let userScore = 0;
+let answered = false;
+let selectedOptionIndex = null;
+
+function initQuiz() {
+    const container = document.getElementById('questions-container');
+    container.innerHTML = '';
+    
+    quizData.forEach((data, index) => {
+        let qBox = document.createElement('div');
+        qBox.id = `q-box-${index}`;
+        qBox.className = `question-box ${index === 0 ? 'active' : ''}`;
+        
+        let qText = document.createElement('div');
+        qText.className = 'question-text';
+        qText.innerText = `${index + 1}. ${data.q}`;
+        qBox.appendChild(qText);
+        
+        data.a.forEach((opt, optIdx) => {
+            let label = document.createElement('label');
+            label.className = 'option-label';
+            label.id = `label-${index}-${optIdx}`;
+            
+            let radio = document.createElement('input');
+            radio.type = 'radio';
+            radio.name = `question-${index}`;
+            radio.onclick = function() { if(!answered) selectedOptionIndex = optIdx; };
+            
+            label.appendChild(radio);
+            label.appendChild(document.createTextNode(opt));
+            qBox.appendChild(label);
+        });
+        
+        let expBox = document.createElement('div');
+        expBox.id = `exp-${index}`;
+        expBox.className = 'explanation-box';
+        expBox.innerHTML = `<strong>Analysis:</strong> <div id="eng-${index}"></div><div class="amh-text" id="amh-${index}"></div>`;
+        qBox.appendChild(expBox);
+        
+        container.appendChild(qBox);
+    });
+}
+
+function checkAnswer() {
+    if (answered) {
+        goToNext();
+        return;
+    }
+    
+    if (selectedOptionIndex === null) {
+        alert("Please pick an option first! / እባክዎ መጀመሪያ መልስ ይምረጡ!");
+        return;
+    }
+    
+    answered = true;
+    const currentQuestion = quizData[currentIndex];
+    const isCorrect = (selectedOptionIndex === currentQuestion.c);
+    
+    document.getElementById(`label-${currentIndex}-${currentQuestion.c}`).classList.add('correct');
+    if (!isCorrect) {
+        document.getElementById(`label-${currentIndex}-${selectedOptionIndex}`).classList.add('incorrect');
+    } else {
+        userScore++;
+    }
+    
+    const expBox = document.getElementById(`exp-${currentIndex}`);
+    expBox.className = isCorrect ? "explanation-box correct-style" : "explanation-box incorrect-style";
+    document.getElementById(`eng-${currentIndex}`).innerText = currentQuestion.eng;
+    document.getElementById(`amh-${currentIndex}`).innerText = currentQuestion.amh;
+    expBox.style.display = "block";
+    
+    const btn = document.getElementById('action-btn');
+    btn.innerText = "Advance Next Question";
+    btn.className = "btn-next";
+}
+
+function goToNext() {
+    document.getElementById(`q-box-${currentIndex}`).classList.remove('active');
+    currentIndex++;
+    answered = false;
+    selectedOptionIndex = null;
+    
+    if (currentIndex < quizData.length) {
+        document.getElementById(`q-box-${currentIndex}`).classList.add('active');
+        document.getElementById('idx-txt').innerText = currentIndex + 1;
+        const btn = document.getElementById('action-btn');
+        btn.innerText = "Submit Answer";
+        btn.className = "";
+    } else {
+        document.getElementById('quiz-ui').style.display = 'none';
+        document.getElementById('score-screen').style.display = 'block';
+        document.getElementById('final-score').innerText = userScore;
+        
+        let msg = "";
+        if(userScore >= 25) msg = "Incredible Job! You have successfully mastered the complete LO4 syllabus framework. / እጅግ በጣም አስደናቂ ውጤት ነው! የLO4ን ሙሉ የቅጥር ብቃት ክህሎት ሀሳብ ተቆጣጥረውታል።";
+        else if(userScore >= 15) msg = "Decent baseline capacity. Spend extra time analyzing the highly tricky questions. / ጥሩ ሙከራ ነው፤ ይበልጥ ውጤታማ ለመሆን የሚያናውዙትን ጥያቄዎች ማብራሪያ በደንብ ይከልሱ።";
+        else msg = "Review Required. Leverage the provided Amharic translations to clear conceptual blocks. / ተጨማሪ ጥናት ያስፈልግዎታል፤ የተሰጡትን ዝርዝር የአማርኛ ማብራሪያዎች በጥብቅ ያንብቡ።";
+        document.getElementById('final-msg').innerText = msg;
+    }
+}
+
+window.onload = initQuiz;
+</script>
+
+</body>
+</html>
